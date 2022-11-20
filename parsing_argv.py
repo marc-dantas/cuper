@@ -1,6 +1,6 @@
-from pexpa.core import Parser, Type, stringify
+from cuper.core import Parser, Type, stringify
 from sys import argv
-from pexpa.util import lit_with_arg
+from cuper.util import lit_with_arg
 
 p = Parser(argv[1:])
 expr = lit_with_arg('print', Type.TEXT)

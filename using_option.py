@@ -1,5 +1,5 @@
-from pexpa.core import Parser, Type, stringify, Option
-from pexpa.util import arguments
+from cuper.core import Parser, Type, stringify, Option
+from cuper.util import arguments
 
 expr = [Option('sum', 'plus'), *arguments(Type.NUMBER, Type.NUMBER)]
 val = input("input> ").split()
