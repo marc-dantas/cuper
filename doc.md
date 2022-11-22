@@ -114,3 +114,12 @@ To check, use the `match` or `assert_match` methods. Example:
 r = p.match(Option(["print", "p"]), Argument(Type.NUMBER))
 print(r.success)  # True
 ```
+
+### *Function `stringify()`*
+This function serves to display the expression in a more presentable way. It converts an expression to a string.
+
+**Definition**
+
+```py
+def stringify(*expr: Item) -> str:
+```
