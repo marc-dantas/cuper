@@ -18,7 +18,7 @@ True
 
 - Windows
 ```console
-$ cd path/to/pexpa
+$ cd path/to/cuper
 $ python example.py
 True
 ```
