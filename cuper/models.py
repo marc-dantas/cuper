@@ -3,7 +3,7 @@ from enum import Enum, auto
 from typing import List, Union
 
 
-Item = Union['Argument', 'Literal', 'Literals', 'Arguments']
+Item = Union['Argument', 'Literal', 'Any', 'Option']
 ANY_ITEM = ('Argument', 'Literal', 'Literals', 'Arguments')
 Expression = List[Item]
 Value = Union[int, str]  # Mapping for: Type.NUMBER | Type.TEXT
