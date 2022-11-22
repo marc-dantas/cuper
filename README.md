@@ -7,7 +7,7 @@
 
 - Linux/Mac
 ```console
-$ cd path/to/pexpa
+$ cd path/to/cuper
 $ python3 using_option.py
 ```
 
@@ -17,8 +17,8 @@ $ cd path/to/pexpa
 $ python using_option.py
 ```
 
-### Docs (coming soon!)
-...
+### Documentation
+Go to [documentation](./doc.md).
 
 ---
 

@@ -1,81 +1,72 @@
 from .models import *
 
 
-def check_type(arg: Union[Argument, Literal], value: str) -> Union[Value, None]:
+def check_argument(arg: Argument, value: str) -> Union[Value, None]:
     if isinstance(arg, Argument):
         if arg.typ == Type.TEXT:
             return value
         elif arg.typ == Type.NUMBER:
-            if value.isdigit():
-                return int(value)
-            return None
-        assert False, 'unreachable'
-    elif isinstance(arg, Literal):
-        return arg
-    else:
-        assert False, 'unreachable'
+            return int(value) if value.isdigit() else None
+    raise TypeError(f"Type mismatch in check_argument(): Expected `arg` to be Argument, but got `{type(arg).__name__}`.")
 
 
-def stringify(expr: Expression) -> str:
-    items = []
-    for item in expr:
-        if isinstance(item, Argument):
-            items.append("<%s>" % str(item.typ).split('.', 1)[1].lower())
-        elif isinstance(item, Literal):
-            items.append(item)
-        elif isinstance(item, Option):
-            items.append("(%s | %s)" % (str(item.x), str(item.y)))
-        else:
-            assert False, 'unreachable'
-    return " ".join(items)
+def stringify(*expr: Item) -> str:
+    return " ".join(repr(it) for it in expr)
 
 
 class Parser:
 
-    def __init__(self, values: List[Literal]):
-        self.__values = values
-        self.__models = {
-            Argument: self.__case_argument,
-            Option: self.__case_option,
-            Literal: self.__case_literal,
-        }
+    def __init__(self, *values: Item):
+        self.__values = list(values)
 
     @staticmethod
-    def __case_option(item: Item, value: str, result: List[Value]) -> bool:
-        if isinstance(item.x, Option) or isinstance(item.y, Option):
-            raise Exception("Option inside option is not allowed.")
-        x_check = check_type(item.x, value)
-        y_check = check_type(item.y, value)
-        if value == item.x and x_check:
-            result.append(x_check)
-        elif value == item.y and y_check:
-            result.append(y_check)
-        else:
-            return False
-        return True
-
+    def match_argument(item: Argument, value: str) -> Union[Value, None]:
+        return check_argument(item, value)
+    
     @staticmethod
-    def __case_argument(item: Item, value: str, result: List[Value]) -> bool:
-        value = check_type(item, value)
-        if not value:
-            return False
-        result.append(value)
-        return True
-
+    def match_any(item: Any, value: str) -> Union[Value, None]:
+        return value if any(Parser.match_argument(it, value) for it in item.items) else None
+    
     @staticmethod
-    def __case_literal(item: Item, value: str, result: List[Value]) -> bool:
-        if value != item:
-            return False
-        result.append(item)
-        return True
+    def match_literal(item: Literal, value: str) -> str:
+        return value if value == item else ''
+    
+    @staticmethod
+    def match_option(item: Option, value: str) -> str:
+        return value if any(Parser.match_literal(it, value) for it in item.items) else ''
 
-    def match(self, expr: Expression) -> List[Value]:
-        values = []
+    def match(self, *expr: Item) -> Result:
+        values: List[Value] = []
         if len(self.__values) < len(expr):
-            return []
+            return Result(False, [])
         for index, item in enumerate(expr):
             value = self.__values[index]
-            assert type(item) in self.__models, 'unreachable'
-            if not self.__models[type(item)](item, value, values):
-                return []
-        return values
+            if isinstance(item, Argument) and (x := self.match_argument(item, value)):
+                values.append(x)
+            elif isinstance(item, Literal):
+                if not self.match_literal(item, value):
+                    return Result(False, [])
+            elif isinstance(item, Any) and (x := self.match_any(item, value)):
+                values.append(x)
+            elif isinstance(item, Option):
+                if not self.match_option(item, value):
+                    return Result(False, [])
+            else:
+                return Result(False, [])
+        return Result(True, values)
+    
+    def assert_match(self, message: str, *expr: Item) -> List[Value]:
+        if (x := self.match(*expr)):
+            return x.values
+        print(message)
+        exit(1)
+
+    def __repr__(self) -> str:
+        return f"cuper.core.Parser({self.__values})"
+
+    def __str__(self) -> str:
+        return self.__repr__()
+
+
+def match(values: List, expr: List[Item]) -> Result:
+    return Parser(*values).match(*expr)
