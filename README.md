@@ -8,13 +8,15 @@
 - Linux/Mac
 ```console
 $ cd path/to/cuper
-$ python3 using_option.py
+$ python3 example.py
+True
 ```
 
 - Windows
 ```console
 $ cd path/to/pexpa
-$ python using_option.py
+$ python example.py
+True
 ```
 
 ### Documentation
