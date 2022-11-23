@@ -9,10 +9,6 @@ Expression = List[Item]
 Value = Union[int, str]  # Mapping for: Type.NUMBER | Type.TEXT
 
 
-def stringify_type(x: 'Type') -> str:
-    return 
-
-
 class Type(Enum):
     TEXT = auto()
     NUMBER = auto()

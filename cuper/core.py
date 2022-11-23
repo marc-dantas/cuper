@@ -1,13 +1,13 @@
 from .models import *
+from typing import Tuple
 
 
-def check_argument(arg: Argument, value: str) -> Union[Value, None]:
-    if isinstance(arg, Argument):
-        if arg.typ == Type.TEXT:
-            return value
-        elif arg.typ == Type.NUMBER:
-            return int(value) if value.isdigit() else None
-    raise TypeError(f"Type mismatch in check_argument(): Expected `arg` to be Argument, but got `{type(arg).__name__}`.")
+def check_argument(typ: Type, value: str) -> Union[Value, None]:
+    if typ == Type.TEXT:
+        return value
+    elif typ == Type.NUMBER:
+        return int(value) if value.isdigit() else None
+    return None
 
 
 def stringify(*expr: Item) -> str:
@@ -16,11 +16,11 @@ def stringify(*expr: Item) -> str:
 
 class Parser:
 
-    def __init__(self, *values: Item):
-        self.__values = list(values)
+    def __init__(self, *values: str):
+        self.__values = values
 
     @staticmethod
-    def match_argument(item: Argument, value: str) -> Union[Value, None]:
+    def match_argument(item: Type, value: str) -> Union[Value, None]:
         return check_argument(item, value)
     
     @staticmethod
@@ -35,24 +35,30 @@ class Parser:
     def match_option(item: Option, value: str) -> str:
         return value if any(Parser.match_literal(it, value) for it in item.items) else ''
 
+    def __match_model(self, item: Item, value: str) -> Tuple[bool, Union[Value, None]]:
+        if isinstance(item, Argument) and (x := self.match_argument(item.typ, value)) is not None:
+            return (True, x)
+        elif isinstance(item, Literal):
+            if self.match_literal(item, value) is None:
+                return (False, None)
+            else:
+                return (True, None)
+        elif isinstance(item, Any) and (x := self.match_any(item, value)) is not None:
+            return (True, x)
+        elif isinstance(item, Option):
+            if self.match_option(item, value) is None:
+                return (False, None)
+        return (False, None)
+
     def match(self, *expr: Item) -> Result:
         values: List[Value] = []
         if len(self.__values) < len(expr):
             return Result(False, [])
         for index, item in enumerate(expr):
             value = self.__values[index]
-            if isinstance(item, Argument) and (x := self.match_argument(item, value)):
-                values.append(x)
-            elif isinstance(item, Literal):
-                if not self.match_literal(item, value):
-                    return Result(False, [])
-            elif isinstance(item, Any) and (x := self.match_any(item, value)):
-                values.append(x)
-            elif isinstance(item, Option):
-                if not self.match_option(item, value):
-                    return Result(False, [])
-            else:
-                return Result(False, [])
+            match_value = self.__match_model(item, value)
+            if match_value[0] and match_value[1] is not None:
+                values.append(match_value[1])
         return Result(True, values)
     
     def assert_match(self, message: str, *expr: Item) -> List[Value]:
