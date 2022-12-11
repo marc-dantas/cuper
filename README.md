@@ -23,6 +23,13 @@ $ python example.py
 Result(success=True, values=[10])
 ```
 
+### Milestones
+- [X] Working base
+- [X] The `Option` and `Any` classes
+- [ ] New types
+- [ ] Optional elements
+- [ ] Transform this library into a Python installable package.
+
 ### Documentation
 Go to [documentation](./doc.md).
 
