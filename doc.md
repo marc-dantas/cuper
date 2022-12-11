@@ -69,17 +69,9 @@ This is the main module of this package. It only contains one class.
 #### `(Parser).match(...)`
 This method is what does the checking. It accepts undefined arguments that represent an `Expression`(`*expr: Item`) and returns the `Result` class, which contains a `bool` saying if there was a match and a `list` with the captured values.
 
-Definition:
+**Definition**
 ```py
 def match(self, *expr: Item) -> Result
-```
-
-#### `(Parser).assert_match(...)`
-Method very similar to match. But there is the difference that you send an error message if there is no combination.
-
-Definition:
-```py
-def assert_match(self, message: str, *expr: Item) -> list[int | str]
 ```
 
 ## Util

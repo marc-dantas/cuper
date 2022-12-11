@@ -18,12 +18,6 @@ class Type(Enum):
 class Result:
     success: bool
     values: List[Value]
-    
-    def __repr__(self) -> str:
-        return f"Result: success: True, values: {self.values}" if self.success else "Result: success: False, values: []"
-        
-    def __str__(self) -> str:
-        return self.__repr__()
 
 
 # NOTE: This thing is for now completely useless. Because we have the type TEXT that matches anything.
