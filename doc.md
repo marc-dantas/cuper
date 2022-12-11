@@ -71,7 +71,7 @@ This method is what does the checking. It accepts undefined arguments that repre
 
 **Definition**
 ```py
-def match(self, *expr: Item) -> Result
+(method) match(self: Self@Parser, expr: Any) -> Result
 ```
 
 ## Util
@@ -100,7 +100,7 @@ Example:
 p = Parser("p", "10")
 ```
 
-To check, use the `match` or `assert_match` methods. Example:
+To check, use the `match` method. Example:
 
 ```py
 r = p.match(Option(["print", "p"]), Argument(Type.NUMBER))
@@ -113,5 +113,5 @@ This function serves to display the expression in a more presentable way. It con
 **Definition**
 
 ```py
-def stringify(*expr: Item) -> str:
+(function) stringify(*expr: Item) -> str
 ```

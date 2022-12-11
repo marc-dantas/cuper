@@ -113,7 +113,3 @@ class Parser:
 
     def __str__(self) -> str:
         return self.__repr__()
-
-
-def match(values: List, expr: List[Item]) -> Result:
-    return Parser(*values).match(*expr)
