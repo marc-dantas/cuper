@@ -13,14 +13,14 @@ Custom parsing module written in Python.
 ```console
 $ cd path/to/cuper
 $ python3 example.py
-True
+Result(success=True, values=[10])
 ```
 
 - Windows
 ```console
 $ cd path/to/cuper
 $ python example.py
-True
+Result(success=True, values=[10])
 ```
 
 ### Documentation
