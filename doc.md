@@ -71,7 +71,7 @@ This is the main module of this package. It only contains one class.
 `Parser` is the class that does the pattern-match between expressions and values. Let's take a look at each method in this class.
 
 #### `(Parser).match(...)`
-This method is what does the checking. It accepts undefined arguments that represent an `Expression`(`*expr: Item`) and returns the `Result` class, which contains a `bool` saying if there was a match and a `list` with the captured values.
+This method is what does the checking. It accepts a list of items that represent an `Expression` (`List[Item]`) and returns the `Result` class, which contains a `bool` saying if there was a match and a `list` with the captured values.
 
 **Definition**
 ```py
@@ -110,15 +110,24 @@ from cuper.core import Parser, Type, Argument
 to initialize the parser, place it in a variable and place each value in each argument of the `__init__` method of the class.
 Example:
 ```py
-p = Parser("p", "10")
+p = Parser(["foo", "10"])
 ```
 
 To check, use the `match` method. Example:
 
 ```py
-r = p.match(Option(["print", "p"]), Argument(Type.NUMBER))
+r = p.match([Option(["foo", "bar"]), Argument(Type.INT)])
 print(r.success)  # True
 ```
+
+Or if you want a more clean and smaller code, you can import the `util` module and write it using its functions:
+```py
+from cuper.util import i
+
+r = p.match([Option(["foo", "bar"]), i()])
+print(r.success)  # True
+```
+
 
 ### *Function `stringify()`*
 This function serves to display the expression in a more presentable way. It converts an expression to a string.
