@@ -81,14 +81,23 @@ This method is what does the checking. It accepts undefined arguments that repre
 ## Util
 Util is a module with some functions to reduce the size of expressions.
 
-### *Function `util.num()`*
-This function returns `Argument(Type.NUMBER)`.
-
-### *Function `util.txt()`*
+### *Function `util.t()`*
 This function returns `Argument(Type.TEXT)`.
 
-### *Function `util.lit_with_arg(name: str, typ: Type)`*
-This function returns `[name, Argument(typ)]`.
+### *Function `util.i()`*
+This function returns `Argument(Type.INT)`.
+
+### *Function `util.f()`*
+This function returns `Argument(Type.FLOAT)`.
+
+### *Function `util.c()`*
+This function returns `Argument(Type.CHAR)`.
+
+### *Function `util.uc()`*
+This function returns `Argument(Type.UP_CHAR)`.
+
+### *Function `util.lc()`*
+This function returns `Argument(Type.LOW_CHAR)`.
 
 ## How to use
 To use the library. Import it.

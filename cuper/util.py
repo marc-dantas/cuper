@@ -1,13 +1,26 @@
 from .models import Type, List, Union, Literal, Argument
 
 
-def txt() -> Argument:
+def t() -> Argument:
     return Argument(Type.TEXT)
 
 
-def num() -> Argument:
-    return Argument(Type.NUMBER)
+def i() -> Argument:
+    return Argument(Type.INT)
 
 
-def lit_with_arg(name: str, typ: Type) -> List[Union[Literal, Argument]]:
-    return [name, Argument(typ)]
+def f() -> Argument:
+    return Argument(Type.FLOAT)
+
+
+def c() -> Argument:
+    return Argument(Type.CHAR)
+
+
+def uc() -> Argument:
+    return Argument(Type.UP_CHAR)
+
+
+def lc() -> Argument:
+    return Argument(Type.LOW_CHAR)
+
