@@ -23,8 +23,6 @@ class Result:
     values: List[Value]
 
 
-# NOTE: This thing is for now completely useless. Because we have the type TEXT that matches anything.
-# When I add more Type variants, it will be useful.
 @dataclass
 class Any:
     items: List[Type]
