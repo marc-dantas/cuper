@@ -5,8 +5,12 @@ Most model classes (which come from the `models` module) are the constructors of
 
 ### *The `Argument` class*
 The argument class is part of the category of capture items (those that capture the value when combined). Basically, the class maps a specific type that is inside the `Type` enum:
-- `Type.NUMBER`: Match any integer.
-- `Type.TEXT`: Match anything (including numbers).
+- `Type.INT`: Matches any integer.
+- `Type.FLOAT`: Matches any decimal number.
+- `Type.CHAR`: Matches any character.
+- `Type.UP_CHAR`: Matches any uppercase character.
+- `Type.LOW_CHAR`: Matches any lowercase character.
+- `Type.TEXT`: Matches anything.
 
 **Example**
 

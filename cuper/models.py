@@ -4,14 +4,17 @@ from typing import List, Union
 
 
 Item = Union['Argument', 'Literal', 'Any', 'Option']
-ANY_ITEM = ('Argument', 'Literal', 'Literals', 'Arguments')
 Expression = List[Item]
-Value = Union[int, str]  # Mapping for: Type.NUMBER | Type.TEXT
+Value = Union[float, int, str]  # Mapping for all types
 
 
 class Type(Enum):
+    INT = auto()
+    FLOAT = auto()
+    CHAR = auto()
+    UP_CHAR = auto()
+    LOW_CHAR = auto()
     TEXT = auto()
-    NUMBER = auto()
 
 
 @dataclass
@@ -49,9 +52,10 @@ class Argument:
     typ: Type
 
     def __repr__(self) -> str:
-        return f"<{str(self.typ).split('.', 1)[1].lower()}>"
+        return f"<{str(self.typ).split('.', 1)[1].replace('_', ' ').lower()}>"
     
     def __str__(self) -> str:
         return self.__repr__()
+
 
 Literal = str

@@ -13,21 +13,22 @@ Custom parsing module written in Python.
 ```console
 $ cd path/to/cuper
 $ python3 example.py
-Result(success=True, values=[10])
+the magic of python
 ```
 
 - Windows
 ```console
 $ cd path/to/cuper
 $ python example.py
-Result(success=True, values=[10])
+the magic of python
 ```
 
 ### Milestones
 - [X] Working base
 - [X] The `Option` and `Any` classes
-- [ ] New types
+- [X] New types
 - [ ] Optional elements
+- [ ] Can put a label in capture items
 - [ ] Transform this library into a Python installable package.
 
 ### Documentation

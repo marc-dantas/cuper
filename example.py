@@ -1,5 +1,9 @@
-from cuper.core import Parser, Type, Argument, Option
+from cuper.core import Parser, Type, Argument, Option, stringify
 
-p = Parser(["p", "10"])
-r = p.match([Option(["print", "p"]), Argument(Type.NUMBER)])
-print(r)  # True
+p = Parser(["print", "the magic of python"])
+r = p.match([Option(["print", "p"]), Argument(Type.TEXT)])
+
+if r.success:
+    print(r.values[0])
+else:
+    print("no match. sorry :(")
