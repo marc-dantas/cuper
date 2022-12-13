@@ -23,12 +23,6 @@ $ python example.py
 the magic of python
 ```
 
-### Milestones
-- [X] Working base
-- [X] The `Option` and `Any` classes
-- [X] New types
-- [ ] Transform this library into a Python installable package.
-
 ### Documentation
 Go to [documentation](./doc.md).
 
