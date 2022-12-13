@@ -1,26 +1,25 @@
 # CuPER - Custom ParsER
 Custom parsing module written in Python.
 
-
-- **Warning**: Use this library at your own risk.
-    + Reason 1. It is under development.
-    + Reason 2. Python is slow, so this library is too.
-
 ### Getting started
-> Python version: 3.8+
 
-- Linux/Mac
+#### **Installation process**
 ```console
-$ cd path/to/cuper
-$ python3 example.py
-the magic of python
+$ # Linux/Mac (Unix)
+$ pip3 install "git+https://github.com/marc-dantas/cuper.git#egg=cuper"
+
+$ # Windows
+$ pip install "git+https://github.com/marc-dantas/cuper.git#egg=cuper"
 ```
 
-- Windows
+#### **Simple test example**
 ```console
-$ cd path/to/cuper
-$ python example.py
-the magic of python
+$ cat >> example.py
+from cuper.core import Parser, stringify
+from cuper.util import t
+print(stringify(t(), "some text", t()))
+$ python3 example.py
+<text> 'some text' <text>
 ```
 
 ### Documentation
