@@ -1,6 +1,6 @@
-from cuper.core import Parser, Type, Argument, Option, stringify
+from cuper.core import Parser, Type, Argument, Option
 
-p = Parser(["print", "the magic of python"])
+p = Parser(["p", "the magic of python"])
 r = p.match([Option(["print", "p"]), Argument(Type.TEXT)])
 
 if r.success:

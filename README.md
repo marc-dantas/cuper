@@ -27,7 +27,6 @@ the magic of python
 - [X] Working base
 - [X] The `Option` and `Any` classes
 - [X] New types
-- [ ] Can put a label in capture items
 - [ ] Transform this library into a Python installable package.
 
 ### Documentation

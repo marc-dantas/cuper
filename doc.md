@@ -137,3 +137,10 @@ This function serves to display the expression in a more presentable way. It con
 ```py
 (function) stringify(*expr: Item) -> str
 ```
+
+### *Function `count()`*
+This function counts how much capture elements are inside given expression. This helps a lot when you need to check the size of `(Result).values` when you match an expression.
+
+
+**Definition**
+`(function) count(expr: Expression) -> int`

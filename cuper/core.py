@@ -38,6 +38,18 @@ def stringify(*expr: Item) -> str:
     return " ".join(repr(it) for it in expr)
 
 
+def count(expr: Expression) -> int:
+    """(function) count(expr: Expression) -> int
+
+    Args:
+        expr (Expression): The expression
+
+    Returns:
+        int: The quantity of capture items inside given expression
+    """
+    return sum(int(isinstance(i, Argument)) for i in expr)
+
+
 class Parser:
 
     def __init__(self, values: List[str]):
@@ -98,11 +110,8 @@ class Parser:
     def __match_model(self, item: Item, value: str) -> Tuple[bool, Union[Value, None]]:
         if isinstance(item, Argument) and (x := self.match_argument(item.typ, value)) is not None:
             return (True, x)
-        elif isinstance(item, Literal):
-            if self.match_literal(item, value) is None:
-                return (False, None)
-            else:
-                return (True, None)
+        elif isinstance(item, Literal) and self.match_literal(item, value):
+            return (True, None)
         elif isinstance(item, Any) and (x := self.match_any(item, value)) is not None:
             return (True, x)
         elif isinstance(item, Option) and self.match_option(item, value):
