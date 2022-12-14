@@ -1,4 +1,4 @@
-from cuper.core import Parser, Type, Argument, Option, count
+from cuper.core import Parser, Type, Argument, Option
 
 p = Parser(["p", "the magic of python"])
 r = p.match([Option(["print", "p"]), Argument(Type.TEXT)])
